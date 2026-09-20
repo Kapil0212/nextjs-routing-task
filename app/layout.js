@@ -1,12 +1,23 @@
 export const metadata = {
   title: "Products Store",
-  description: "Next.js Products Store routing task",
+  description: "Products Store Website",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <header>
+          <h1>Products Store</h1>
+          <p>Welcome to our store</p>
+        </header>
+
+        <main>{children}</main>
+
+        <footer>
+          <p>© 2026 Products Store. All rights reserved.</p>
+        </footer>
+      </body>
     </html>
   );
 }
