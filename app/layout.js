@@ -11,20 +11,20 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <header>
-          <div>
-            <Image
-              src="/logo.png"
-              alt="Products Store Logo"
-              width={60}
-              height={60}
-            />
+          <Image
+            src="/logo.png"
+            alt="Products Store Logo"
+            width={60}
+            height={60}
+          />
 
-            <h1>Products Store</h1>
-          </div>
+          <h1>Products Store</h1>
 
           <nav>
             <Link href="/">Home</Link>{" "}
-            <Link href="/products">Products</Link>
+            <Link href="/products">Products</Link>{" "}
+            <Link href="/login">Login</Link>{" "}
+            <Link href="/dashboard">Dashboard</Link>
           </nav>
         </header>
 
