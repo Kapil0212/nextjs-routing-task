@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const metadata = {
   title: "Products Store",
   description: "Products Store Website",
@@ -9,7 +11,11 @@ export default function RootLayout({ children }) {
       <body>
         <header>
           <h1>Products Store</h1>
-          <p>Welcome to our store</p>
+
+          <nav>
+            <Link href="/">Home</Link>{" "}
+            <Link href="/products">Products</Link>
+          </nav>
         </header>
 
         <main>{children}</main>

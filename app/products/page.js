@@ -1,22 +1,31 @@
 import Link from "next/link";
 
-export default function ProductsPage() {
+export default async function ProductsPage() {
+  const response = await fetch("https://dummyjson.com/products", {
+    next: { revalidate: 60 },
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch products");
+  }
+
+  const data = await response.json();
+
   return (
-    <main>
-      <h1>Products Page</h1>
-      <p>Browse our products below:</p>
+    <div>
+      <h1>Products</h1>
 
-      <ul>
-        {Array.from({ length: 10 }, (_, index) => {
-          const id = index + 1;
+      {data.products.map((product) => (
+        <div key={product.id}>
+          <h2>{product.title}</h2>
+          <p>Price: ${product.price}</p>
+          <p>{product.description}</p>
 
-          return (
-            <li key={id}>
-              <Link href={`/products/${id}`}>Product {id}</Link>
-            </li>
-          );
-        })}
-      </ul>
-    </main>
+          <Link href={`/products/${product.id}`}>
+            View Product
+          </Link>
+        </div>
+      ))}
+    </div>
   );
 }
