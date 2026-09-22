@@ -1,7 +1,10 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "../../auth";
-
+export const metadata = {
+  title: "Products Store - Products List",
+  description: "Browse our products",
+};
 export default async function ProductsPage() {
   const session = await getServerSession(authOptions);
 
