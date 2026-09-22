@@ -1,13 +1,19 @@
-import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOptions } from "../../auth";
 
 export default async function ProductsPage() {
-  const response = await fetch("https://dummyjson.com/products", {
-    next: { revalidate: 60 },
-  });
+  const session = await getServerSession(authOptions);
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch products");
+  if (!session) {
+    redirect("/login");
   }
+
+  const response = await fetch("https://dummyjson.com/products", {
+    next: {
+      revalidate: 60,
+    },
+  });
 
   const data = await response.json();
 
@@ -18,12 +24,7 @@ export default async function ProductsPage() {
       {data.products.map((product) => (
         <div key={product.id}>
           <h2>{product.title}</h2>
-
-          <p>Price: ${product.price}</p>
-
-          <Link href={`/products/${product.id}`}>
-            View Product
-          </Link>
+          <p>${product.price}</p>
         </div>
       ))}
     </main>

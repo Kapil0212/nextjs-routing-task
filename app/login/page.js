@@ -1,11 +1,19 @@
 "use client";
 
 import { signIn } from "next-auth/react";
+import { useState } from "react";
 
 export default function LoginPage() {
-  const handleLogin = async () => {
-    await signIn("github", {
-      callbackUrl: "/dashboard",
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    await signIn("credentials", {
+      username,
+      password,
+      callbackUrl: "/products",
     });
   };
 
@@ -13,9 +21,31 @@ export default function LoginPage() {
     <main>
       <h1>Login</h1>
 
-      <button onClick={handleLogin}>
-        Continue with GitHub
-      </button>
+      <form onSubmit={handleLogin}>
+        <div>
+          <label>Username</label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
+
+        <br />
+
+        <div>
+          <label>Password</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+
+        <br />
+
+        <button type="submit">Login</button>
+      </form>
     </main>
   );
 }

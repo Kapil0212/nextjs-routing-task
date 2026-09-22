@@ -1,38 +1,63 @@
-import Image from "next/image";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import Link from "next/link";
+import { authOptions } from "../../../auth";
 
 export default async function ProductDetailsPage({ params }) {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    redirect("/login");
+  }
+
   const { id } = await params;
 
-  const response = await fetch(`https://dummyjson.com/products/${id}`, {
-    next: { revalidate: 60 },
-  });
+  const response = await fetch(
+    `https://dummyjson.com/products/${id}`,
+    {
+      next: {
+        revalidate: 60,
+      },
+    }
+  );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch product");
+    return <h1>Product not found</h1>;
   }
 
   const product = await response.json();
 
   return (
-    <main>
+    <main style={{ padding: "30px" }}>
+      <Link href="/products">← Back to Products</Link>
+
       <h1>{product.title}</h1>
 
-      <Image
-        src="/product.jpg"
+      <img
+        src={product.thumbnail}
         alt={product.title}
-        width={300}
-        height={300}
+        width="300"
       />
 
       <p>{product.description}</p>
 
-      <p>Price: ${product.price}</p>
+      <h2>${product.price}</h2>
 
-      <p>Rating: {product.rating}</p>
+      <p>
+        <strong>Category:</strong> {product.category}
+      </p>
 
-      <p>Category: {product.category}</p>
+      <p>
+        <strong>Brand:</strong> {product.brand}
+      </p>
 
-      <p>Stock: {product.stock}</p>
+      <p>
+        <strong>Rating:</strong> {product.rating}
+      </p>
+
+      <p>
+        <strong>Stock:</strong> {product.stock}
+      </p>
     </main>
   );
 }
