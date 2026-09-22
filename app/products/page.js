@@ -12,20 +12,20 @@ export default async function ProductsPage() {
   const data = await response.json();
 
   return (
-    <div>
+    <main>
       <h1>Products</h1>
 
       {data.products.map((product) => (
         <div key={product.id}>
           <h2>{product.title}</h2>
+
           <p>Price: ${product.price}</p>
-          <p>{product.description}</p>
 
           <Link href={`/products/${product.id}`}>
             View Product
           </Link>
         </div>
       ))}
-    </div>
+    </main>
   );
 }

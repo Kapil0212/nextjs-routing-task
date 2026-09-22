@@ -1,7 +1,8 @@
-export default function Home() {
+export default function HomePage() {
   return (
     <main>
       <h1>Welcome to the Products Store</h1>
+      <p>Explore our products.</p>
     </main>
   );
 }
