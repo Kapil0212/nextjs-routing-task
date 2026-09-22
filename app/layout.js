@@ -1,38 +1,30 @@
 import Image from "next/image";
 import Link from "next/link";
-
-export const metadata = {
-  title: "Products Store",
-  description: "Products Store Website",
-};
+import Providers from "./providers";
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <header>
-          <Image
-            src="/logo.png"
-            alt="Products Store Logo"
-            width={60}
-            height={60}
-          />
+        <Providers>
+          <header>
+            <Image
+              src="/logo.png"
+              alt="Logo"
+              width={100}
+              height={50}
+            />
 
-          <h1>Products Store</h1>
+            <nav>
+              <Link href="/">Home</Link>{" "}
+              <Link href="/products">Products</Link>{" "}
+              <Link href="/login">Login</Link>{" "}
+              <Link href="/dashboard">Dashboard</Link>
+            </nav>
+          </header>
 
-          <nav>
-            <Link href="/">Home</Link>{" "}
-            <Link href="/products">Products</Link>{" "}
-            <Link href="/login">Login</Link>{" "}
-            <Link href="/dashboard">Dashboard</Link>
-          </nav>
-        </header>
-
-        <main>{children}</main>
-
-        <footer>
-          <p>© 2026 Products Store. All rights reserved.</p>
-        </footer>
+          <main>{children}</main>
+        </Providers>
       </body>
     </html>
   );
