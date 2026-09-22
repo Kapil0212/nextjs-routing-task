@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata = {
@@ -10,7 +11,16 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <header>
-          <h1>Products Store</h1>
+          <div>
+            <Image
+              src="/logo.png"
+              alt="Products Store Logo"
+              width={60}
+              height={60}
+            />
+
+            <h1>Products Store</h1>
+          </div>
 
           <nav>
             <Link href="/">Home</Link>{" "}
