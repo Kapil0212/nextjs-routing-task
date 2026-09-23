@@ -21,7 +21,6 @@ async function getProduct(id) {
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
-
   const product = await getProduct(id);
 
   if (!product) {
@@ -44,7 +43,6 @@ export default async function ProductDetailsPage({ params }) {
   }
 
   const { id } = await params;
-
   const product = await getProduct(id);
 
   if (!product) {
@@ -52,22 +50,32 @@ export default async function ProductDetailsPage({ params }) {
   }
 
   return (
-    <main>
+    <main style={{ padding: "30px" }}>
       <h1>{product.title}</h1>
 
       <img
         src={product.thumbnail}
         alt={product.title}
         width="300"
+        height="300"
+        style={{ objectFit: "contain" }}
       />
-
-      <p>{product.description}</p>
 
       <h2>${product.price}</h2>
 
-      <p>Category: {product.category}</p>
-      <p>Rating: {product.rating}</p>
-      <p>Stock: {product.stock}</p>
+      <p>{product.description}</p>
+
+      <p>
+        <strong>Category:</strong> {product.category}
+      </p>
+
+      <p>
+        <strong>Rating:</strong> {product.rating}
+      </p>
+
+      <p>
+        <strong>Stock:</strong> {product.stock}
+      </p>
     </main>
   );
 }
